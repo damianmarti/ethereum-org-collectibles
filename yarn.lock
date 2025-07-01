@@ -2304,9 +2304,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@se-2/ethereum-collectibles-fetcher@workspace:packages/scripts":
+"@se-2/ethereum-collectibles-fetcher@workspace:packages/fetcher":
   version: 0.0.0-use.local
-  resolution: "@se-2/ethereum-collectibles-fetcher@workspace:packages/scripts"
+  resolution: "@se-2/ethereum-collectibles-fetcher@workspace:packages/fetcher"
   dependencies:
     "@types/pg": ^8.15.4
     axios: ^1.6.8
