@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { Client } from "pg";
 
-export async function GET(_request: Request, { params }: { params: { address: string } }) {
+export async function GET(_request: Request, { params }: { params: Promise<{ address: string }> }) {
   const { address } = await params;
 
   if (!address) {

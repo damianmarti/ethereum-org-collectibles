@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { Client } from "pg";
 
-export async function GET(_request: Request, { params }: { params: { year: string } }) {
+export async function GET(_request: Request, { params }: { params: Promise<{ year: string }> }) {
   const { year } = await params;
   if (!year) {
     return NextResponse.json({ error: "Year is required" }, { status: 400 });

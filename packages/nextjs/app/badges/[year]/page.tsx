@@ -28,11 +28,9 @@ function getYearRange(start: number, end: number) {
   return years;
 }
 
-export default async function BadgesPage({ params }: { params: { year: string } }) {
+export default async function BadgesPage({ params }: { params: Promise<{ year: string }> }) {
   const { year } = await params;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3001"}/api/collectibles/${year}`, {
-    cache: "no-store",
-  });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/collectibles/${year}`);
   if (!res.ok) return notFound();
   const badges: Badge[] = await res.json();
   const grouped = groupByCategory(badges);
