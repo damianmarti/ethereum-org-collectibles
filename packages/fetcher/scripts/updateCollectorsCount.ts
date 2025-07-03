@@ -22,16 +22,16 @@ async function main() {
       [collectible.source, collectible.id]
     );
     await client.query(
-      "UPDATE collectibles SET collectorsCount = $1 WHERE source = $2 AND id = $3",
+      "UPDATE collectibles SET collectors_count = $1 WHERE source = $2 AND id = $3",
       [count, collectible.source, collectible.id]
     );
     updated++;
   }
   await client.end();
-  console.log(`Updated collectorsCount for ${updated} collectibles.`);
+  console.log(`Updated collectors_count for ${updated} collectibles.`);
 }
 
 main().catch(err => {
-  console.error("Error updating collectorsCount:", err);
+  console.error("Error updating collectors_count:", err);
   process.exit(1);
 });

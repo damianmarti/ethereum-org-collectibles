@@ -8,7 +8,7 @@ interface Badge {
   description?: string;
   image?: string;
   category?: string;
-  collectorsCount?: number;
+  collectors_count?: number;
   link?: string;
 }
 
@@ -36,6 +36,8 @@ export default async function BadgesPage({ params }: { params: Promise<{ year: s
   const grouped = groupByCategory(badges);
   const categories = Object.keys(grouped);
   const years = getYearRange(2019, new Date().getFullYear());
+  const totalBadges = badges.length;
+  const collected = badges.reduce((sum, b) => sum + (b.collectors_count || 0), 0);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-100 py-10 px-4">
@@ -50,7 +52,9 @@ export default async function BadgesPage({ params }: { params: Promise<{ year: s
           </Link>
         ))}
       </div>
-      <h1 className="text-3xl font-bold text-center mb-8 text-blue-700">{year} Badges</h1>
+      <h1 className="text-3xl font-bold text-center mb-8 text-blue-700">
+        {year} Badges ({totalBadges} badges - {collected} minted)
+      </h1>
       {categories.length === 0 && <div className="text-center text-gray-500">No badges found for {year}.</div>}
       {categories.map(category => (
         <div key={category} className="mb-12">
@@ -76,9 +80,9 @@ export default async function BadgesPage({ params }: { params: Promise<{ year: s
                   {badge.category && (
                     <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded">{badge.category}</span>
                   )}
-                  {typeof badge.collectorsCount === "number" && (
+                  {typeof badge.collectors_count === "number" && (
                     <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded">
-                      Collectors: {badge.collectorsCount}
+                      Collectors: {badge.collectors_count}
                     </span>
                   )}
                 </div>

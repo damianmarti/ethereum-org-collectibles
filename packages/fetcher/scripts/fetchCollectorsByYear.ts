@@ -132,7 +132,7 @@ async function main() {
           [collectible.source, collectible.id]
         );
         await client.query(
-          "UPDATE collectibles SET collectorsCount = $1 WHERE source = $2 AND id = $3",
+          "UPDATE collectibles SET collectors_count = $1 WHERE source = $2 AND id = $3",
           [count, collectible.source, collectible.id]
         );
       }
