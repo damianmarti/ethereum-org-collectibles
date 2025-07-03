@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import scaffoldConfig from "../../scaffold.config";
 import { useAccount, useSignMessage } from "wagmi";
 import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
@@ -115,9 +116,11 @@ export default function AdminPage() {
           <div className="mt-8 p-4 border rounded-lg bg-blue-50 flex flex-col items-center">
             <h2 className="font-bold mb-4 text-blue-700 text-xl">Badge Created</h2>
             {result.image && (
-              <img
+              <Image
                 src={result.image}
                 alt={result.name || "Badge image"}
+                width={128}
+                height={128}
                 className="w-32 h-32 rounded-xl shadow mb-4 object-contain bg-white border"
               />
             )}
