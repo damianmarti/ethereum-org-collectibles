@@ -37,8 +37,6 @@ async function fetchPoapCollectors(
     });
     const data = response.data;
     total = data.total;
-    console.log(`Fetched ${data.tokens.length} tokens for event ${eventId}`);
-    console.log(`Total: ${total}`);
     const tokens = data.tokens || [];
     allTokens = allTokens.concat(
       tokens.map((t: any) => ({
@@ -47,7 +45,6 @@ async function fetchPoapCollectors(
       }))
     );
     offset += limit;
-    console.log(`Fetched ${allTokens.length} tokens for event ${eventId}`);
   } while (allTokens.length < total);
   return allTokens;
 }
@@ -93,6 +90,7 @@ async function main() {
   );
   for (const collectible of collectibles) {
     let collectors: { address: string; tokenId: string }[] = [];
+    let insertCount = 0;
     try {
       if (collectible.source === "POAP") {
         collectors = await fetchPoapCollectors(collectible.id);
@@ -102,7 +100,7 @@ async function main() {
       } else if (collectible.source === "Galxe") {
         collectors = await fetchGalxeCollectors(collectible.id);
       }
-      let insertCount = 0;
+      insertCount = 0;
       let existingCount = 0;
       for (const c of collectors) {
         const res = await client.query(
@@ -127,6 +125,17 @@ async function main() {
         `Error processing ${collectible.source} ${collectible.id}:`,
         err
       );
+    } finally {
+      if (insertCount > 0) {
+        const { rows: [{ count }] } = await client.query(
+          "SELECT COUNT(*)::int AS count FROM collectors WHERE source = $1 AND id = $2",
+          [collectible.source, collectible.id]
+        );
+        await client.query(
+          "UPDATE collectibles SET collectorsCount = $1 WHERE source = $2 AND id = $3",
+          [count, collectible.source, collectible.id]
+        );
+      }
     }
   }
   await client.end();
