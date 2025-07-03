@@ -15,7 +15,16 @@ const nextConfig: NextConfig = {
     return config;
   },
   images: {
-    domains: ["cdn.galxe.com", "assets.poap.xyz"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.galxe.com",
+      },
+      {
+        protocol: "https",
+        hostname: "assets.poap.xyz",
+      },
+    ],
   },
 };
 
