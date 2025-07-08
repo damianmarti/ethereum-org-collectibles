@@ -17,12 +17,13 @@ export async function GET(_request: Request, { params }: { params: Promise<{ add
   try {
     await client.connect();
     // Find all collectibles owned by this address
+    const lowercasedAddress = address.toLowerCase();
     const { rows } = await client.query(
       `SELECT c.*
        FROM collectibles c
        INNER JOIN collectors col ON c.id = col.id AND c.source = col.source
        WHERE col.address = $1`,
-      [address],
+      [lowercasedAddress],
     );
     return NextResponse.json(rows);
   } catch (err: any) {

@@ -25,6 +25,10 @@ export const menuLinks: HeaderMenuLink[] = [
     href: `/badges/${new Date().getFullYear()}`,
   },
   {
+    label: "My Badges",
+    href: "/my-badges",
+  },
+  {
     label: "Admin",
     href: "/admin",
   },
