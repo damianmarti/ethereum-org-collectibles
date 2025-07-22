@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { fetchCollectors } from "~~/services/collectors";
 
-export async function POST(request: Request, { params }: { params: Promise<{ year: string }> }) {
-  const { year } = await params;
+export async function GET(request: Request) {
+  const currentYear = new Date().getFullYear().toString();
 
   if (!process.env.POSTGRES_URL || !process.env.POAP_API_KEY) {
     return NextResponse.json({ error: "POSTGRES_URL or POAP_API_KEY not set" }, { status: 500 });
@@ -15,6 +15,6 @@ export async function POST(request: Request, { params }: { params: Promise<{ yea
     });
   }
 
-  const summary = await fetchCollectors(year);
+  const summary = await fetchCollectors(currentYear);
   return NextResponse.json(summary);
 }
