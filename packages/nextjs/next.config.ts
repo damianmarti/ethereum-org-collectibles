@@ -26,6 +26,18 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        // matching all API routes
+        source: "/api/:path*",
+        headers: [
+          { key: "Access-Control-Allow-Origin", value: "*" }, // replace this your actual origin
+          { key: "Access-Control-Allow-Methods", value: "GET,PUT" },
+        ],
+      },
+    ];
+  },
 };
 
 const isIpfs = process.env.NEXT_PUBLIC_IPFS_BUILD === "true";
