@@ -560,6 +560,39 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@graphql-typed-document-node/core@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "@graphql-typed-document-node/core@npm:3.2.0"
+  peerDependencies:
+    graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+  checksum: fa44443accd28c8cf4cb96aaaf39d144a22e8b091b13366843f4e97d19c7bfeaf609ce3c7603a4aeffe385081eaf8ea245d078633a7324c11c5ec4b2011bb76d
+  languageName: node
+  linkType: hard
+
+"@hatsprotocol/sdk-v1-core@npm:^0.12.4":
+  version: 0.12.4
+  resolution: "@hatsprotocol/sdk-v1-core@npm:0.12.4"
+  dependencies:
+    "@hatsprotocol/sdk-v1-subgraph": 1.1.0
+    graphql: ^16.6.0
+    graphql-request: ^6.1.0
+  peerDependencies:
+    viem: ^2.0.0
+  checksum: a63e13398568393b0d47440cfa913c49329344e0b10dac522858dbc548816ebffe874451d1f09d70e02393d220be6271bd290b75132a418fd66e1f9a41a8b8bb
+  languageName: node
+  linkType: hard
+
+"@hatsprotocol/sdk-v1-subgraph@npm:1.1.0":
+  version: 1.1.0
+  resolution: "@hatsprotocol/sdk-v1-subgraph@npm:1.1.0"
+  dependencies:
+    graphql: ^16.6.0
+    graphql-request: ^6.1.0
+    zod: ^3.22.4
+  checksum: 1d3d334458d09d21c86ff7c05329450a7151ad6cd2fb734b46f1c4b675fe207ee6fa609eeaad6b013ced66e1cc4b75e122ade026d81acb64cc1b2cf9a4c1743d
+  languageName: node
+  linkType: hard
+
 "@heroicons/react@npm:~2.1.5":
   version: 2.1.5
   resolution: "@heroicons/react@npm:2.1.5"
@@ -2322,6 +2355,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@se-2/nextjs@workspace:packages/nextjs"
   dependencies:
+    "@hatsprotocol/sdk-v1-core": ^0.12.4
     "@heroicons/react": ~2.1.5
     "@rainbow-me/rainbowkit": 2.2.7
     "@tailwindcss/postcss": 4.0.15
@@ -5120,7 +5154,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-fetch@npm:^3.1.4":
+"cross-fetch@npm:^3.1.4, cross-fetch@npm:^3.1.5":
   version: 3.2.0
   resolution: "cross-fetch@npm:3.2.0"
   dependencies:
@@ -7196,6 +7230,25 @@ __metadata:
   version: 1.4.0
   resolution: "graphemer@npm:1.4.0"
   checksum: bab8f0be9b568857c7bec9fda95a89f87b783546d02951c40c33f84d05bb7da3fd10f863a9beb901463669b6583173a8c8cc6d6b306ea2b9b9d5d3d943c3a673
+  languageName: node
+  linkType: hard
+
+"graphql-request@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "graphql-request@npm:6.1.0"
+  dependencies:
+    "@graphql-typed-document-node/core": ^3.2.0
+    cross-fetch: ^3.1.5
+  peerDependencies:
+    graphql: 14 - 16
+  checksum: 6d62630a0169574442320651c1f7626c0c602025c3c46b19e09417c9579bb209306ee63de9793a03be2e1701bb7f13971f8545d99bc6573e340f823af0ad35b2
+  languageName: node
+  linkType: hard
+
+"graphql@npm:^16.6.0":
+  version: 16.11.0
+  resolution: "graphql@npm:16.11.0"
+  checksum: 65bc206edbe980f2759a8e4cf324873f75a66ab48263961472716e50127ae446739be20f926bb7f036a8d199bd4de072f684fd147c285bd6ba965d98cebb6200
   languageName: node
   linkType: hard
 

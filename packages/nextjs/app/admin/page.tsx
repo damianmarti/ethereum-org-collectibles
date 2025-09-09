@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import scaffoldConfig from "../../scaffold.config";
-import { useAccount, useSignMessage } from "wagmi";
+import { HatsClient } from "@hatsprotocol/sdk-v1-core";
+import { useAccount, usePublicClient, useSignMessage } from "wagmi";
 import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 
 const categories = ["Github", "Translation", "Community", "Design", "Events / Calls"];
@@ -17,8 +18,32 @@ export default function AdminPage() {
   const [error, setError] = useState<string | null>(null);
   const { signMessageAsync } = useSignMessage();
   const [loading, setLoading] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  const isAdmin = address && scaffoldConfig.admins.map(a => a.toLowerCase()).includes(address.toLowerCase());
+  const publicClient = usePublicClient();
+
+  useEffect(() => {
+    const checkHatWearer = async () => {
+      if (address && publicClient) {
+        try {
+          const hatsClient = new HatsClient({
+            chainId: scaffoldConfig.adminHat.chainId,
+            publicClient: publicClient as any,
+          });
+
+          const wearer = await hatsClient.isWearerOfHat({
+            wearer: address as string,
+            hatId: scaffoldConfig.adminHat.id,
+          });
+          setIsAdmin(wearer);
+        } catch (error) {
+          console.error("Error checking hat wearer:", error);
+          setIsAdmin(false);
+        }
+      }
+    };
+    checkHatWearer();
+  }, [address, publicClient]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

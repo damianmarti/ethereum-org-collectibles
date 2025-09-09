@@ -7,7 +7,10 @@ export type ScaffoldConfig = {
   rpcOverrides?: Record<number, string>;
   walletConnectProjectId: string;
   onlyLocalBurnerWallet: boolean;
-  admins: string[];
+  adminHat: {
+    id: bigint;
+    chainId: number;
+  };
 };
 
 export const DEFAULT_ALCHEMY_API_KEY = "oKxs-03sij-U_N0iOlrSsZFr29-IqbuF";
@@ -42,7 +45,10 @@ const scaffoldConfig = {
   // Only show the Burner Wallet when running on hardhat network
   onlyLocalBurnerWallet: true,
 
-  admins: ["0x5dCb5f4F39Caa6Ca25380cfc42280330b49d3c93"],
+  adminHat: {
+    id: 0x0000003e00010000000000000000000000000000000000000000000000000000n,
+    chainId: 1,
+  },
 } as const satisfies ScaffoldConfig;
 
 export default scaffoldConfig;

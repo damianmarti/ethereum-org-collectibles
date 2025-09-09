@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
+import { HatsClient } from "@hatsprotocol/sdk-v1-core";
 import { Client } from "pg";
-import { verifyMessage } from "viem";
+import { createPublicClient, http, verifyMessage } from "viem";
+import { mainnet } from "viem/chains";
 import scaffoldConfig from "~~/scaffold.config";
 
 function parseCollectibleUrl(url: string) {
@@ -68,10 +70,26 @@ export async function POST(req: Request) {
     if (!year || !url || !category || !address || !signature) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
-    const adminAddresses = scaffoldConfig.admins.map(a => a.toLowerCase());
-    if (!adminAddresses.includes(address.toLowerCase())) {
+
+    const publicClient = createPublicClient({
+      chain: mainnet,
+      transport: http(),
+    });
+
+    const hatsClient = new HatsClient({
+      chainId: scaffoldConfig.adminHat.chainId,
+      publicClient: publicClient as any,
+    });
+
+    const wearer = await hatsClient.isWearerOfHat({
+      wearer: address as string,
+      hatId: scaffoldConfig.adminHat.id,
+    });
+
+    if (!wearer) {
       return NextResponse.json({ error: "Not authorized" }, { status: 403 });
     }
+
     const message = `Add collectible: year=${year}, url=${url}, category=${category}`;
     const valid = await verifyMessage({ address, message, signature });
     if (!valid) {
